@@ -1,8 +1,6 @@
 require 'sinatra'
 
 before do
-  @now = Time.now
-  logger.info("Got a #{request.request_method} request at #{@now.strftime("%Y-%m-%d:%H-%M-%S.%L")}")
   @request_payload = if request.body&.size > 0
                        request.body.rewind
                        JSON.parse(request.body.read, symbolize_names: true)
@@ -11,8 +9,9 @@ before do
                      end
   @request_params = request.params || {}
 
-  logger.info("Body was #{@request_payload}")
-  logger.info("Params were #{@request_params}")
+  # logger.info("Body: #{@request_payload}")
+  # logger.info("Params: #{@request_params}")
+  logger.info("<=== got request")
 end
 
 get '/health' do
